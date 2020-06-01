@@ -174,7 +174,7 @@ function provideCompletionItemsGenerator(
 }
 
 function enableEmmetSupport(disposables: Disposable[]) {
-  const emmetRegex = /(?=\.)([\w-\. ]*$)/;
+  const emmetRegex = /(?=\.)([\w- :%@\(\)|\\\.]*$)/;
   const languageModes = [
     "html",
     "django-html",
@@ -276,7 +276,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
   // Javascript based extensions
   ["typescriptreact", "javascript", "javascriptreact"].forEach(extension => {
     context.subscriptions.push(
-      provideCompletionItemsGenerator(extension, /className=["|']([\w- ]*$)/)
+      provideCompletionItemsGenerator(
+        extension,
+        /(?<=className=["|'])([\w- ]*$)/
+      )
     );
     context.subscriptions.push(
       provideCompletionItemsGenerator(extension, /class=["|']([\w- ]*$)/)
@@ -298,7 +301,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
     "ejs"
   ].forEach(extension => {
     context.subscriptions.push(
-      provideCompletionItemsGenerator(extension, /class=["|']([\w- ]*$)/)
+      provideCompletionItemsGenerator(
+        extension,
+        /(?<=class=["|'])([\w- :%@\(\)|\\\.]*$)/
+      )
     );
   });
 
@@ -306,7 +312,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   ["css", "sass", "scss"].forEach(extension => {
     // Support for Tailwind CSS
     context.subscriptions.push(
-      provideCompletionItemsGenerator(extension, /@apply ([\.\w- ]*$)/, ".")
+      provideCompletionItemsGenerator(extension, /@apply ([\.\w- ]*$)/, ".", "")
     );
   });
 
