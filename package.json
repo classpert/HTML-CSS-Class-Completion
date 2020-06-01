@@ -3,7 +3,7 @@
   "displayName": "IntelliSense for CSS class names in HTML",
   "description": "CSS class name completion for the HTML class attribute based on the definitions found in your workspace.",
   "version": "1.19.0",
-  "publisher": "Zignd",
+  "publisher": "classpert",
   "engines": {
     "vscode": "^1.19.0"
   },
