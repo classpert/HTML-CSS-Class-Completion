@@ -174,7 +174,7 @@ function provideCompletionItemsGenerator(
 }
 
 function enableEmmetSupport(disposables: Disposable[]) {
-  const emmetRegex = /(?=\.)([\w- :%@\(\)|\\\.]*$)/;
+  const emmetRegex = /(?=\.)([\w- :%@\(\)|\_\\\.]*$)/;
   const languageModes = [
     "html",
     "django-html",
@@ -303,7 +303,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     context.subscriptions.push(
       provideCompletionItemsGenerator(
         extension,
-        /(?<=class=["|'])([\w- :%@\(\)|\\\.]*$)/
+        /(?<=class=["|'])([\w- :%@\(\)|\_\\\.]*$)/
       )
     );
   });
