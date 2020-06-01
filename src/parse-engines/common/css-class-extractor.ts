@@ -7,7 +7,7 @@ export default class CssClassExtractor {
    * @description Extracts class names from CSS AST
    */
   public static extract(ast: css.Stylesheet): CssClassDefinition[] {
-    const classNameRegex: RegExp = /\.((?:(?:[A-z\d%-])|\:|\(|\)|\@|\>|\<)+)/g;
+    const classNameRegex: RegExp = /\.((?:(?:[A-z\d%-])|\:|\.|\(|\)|\@|\>|\<|\|)+)/g;
 
     const definitions: CssClassDefinition[] = [];
 
@@ -21,9 +21,11 @@ export default class CssClassExtractor {
           let item: RegExpExecArray = classNameRegex.exec(selector);
           while (item) {
             let normalizedItem: string = item[1].replace(
-              /(\\([:@<>\)\(]))/g,
+              /(\\([:@<>%|\.\)\(]))/g,
               "$2"
             );
+            // channel.appendLine(selector + " => " + normalizedItem);
+
             definitions.push(new CssClassDefinition(normalizedItem));
             item = classNameRegex.exec(selector);
           }
